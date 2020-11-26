@@ -18,9 +18,8 @@ class CreatePostsTable extends Migration
             $table->string('description');
             $table->string('category');
             $table->text('image');
-            $table->integer('user_id')->unsignedBigInteger();
+            $table->integer('user_id');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
