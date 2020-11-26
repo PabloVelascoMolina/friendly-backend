@@ -39,9 +39,7 @@ class RegisterController extends BaseController
         $success['name'] =  $user->name;
         $success['email'] =  $user->email;
         $success['id'] =  $user->id;
-
-        $avatar = Avatar::create($user->name)->getImageObject()->encode('png');
-        Storage::put('avatars/' . $user->id . '/avatar.png', (string) $avatar);
+        $success['avatar'] =  $user->avatar;
 
         return $this->sendResponse($success, 'User register successfully.');
     }
@@ -59,6 +57,7 @@ class RegisterController extends BaseController
             $success['name'] =  $user->name;
             $success['email'] =  $user->email;
             $success['id'] =  $user->id;
+            $success['avatar'] =  $user->avatar;
 
             return $this->sendResponse($success, 'User login successfully.');
         } else {
@@ -72,7 +71,14 @@ class RegisterController extends BaseController
     }
 
     public function RandomUsers() {
-        $user = User::all()->random(3);
+        $user = User::all();
+        $numberOfRows = 9;
+        $randRows = $user->shuffle()->slice(0, $numberOfRows);
+        return response()->json($randRows, 200);
+    }
+
+    public function Profile($id) {
+        $user = User::find($id);
         return response()->json($user, 200);
     }
 

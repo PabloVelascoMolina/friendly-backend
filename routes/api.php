@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\PostsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +22,10 @@ use App\Http\Controllers\API\ProductController;
 Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [RegisterController::class, 'login']);
 Route::get('randomusers', [RegisterController::class, 'RandomUsers']);
+Route::get('profile/{id}', [RegisterController::class, 'Profile']);
 Route::middleware('auth:api')->group(function () {
     Route::resource('products', ProductController::class);
+    Route::resource('posts', PostsController::class);
     Route::get('user', [RegisterController::class, 'user']);
     Route::get('logout', [RegisterController::class, 'logout']);
 });
