@@ -23,10 +23,10 @@ Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [RegisterController::class, 'login']);
 Route::get('randomusers', [RegisterController::class, 'RandomUsers']);
 Route::get('profile/{id}', [RegisterController::class, 'Profile']);
-Route::resource('products', ProductController::class);
+Route::resource('posts', PostsController::class);
 
 Route::middleware('auth:api')->group(function () {
-    Route::resource('posts', PostsController::class);
+    Route::resource('products', ProductController::class);
     Route::get('user', [RegisterController::class, 'user']);
     Route::get('logout', [RegisterController::class, 'logout']);
 });
