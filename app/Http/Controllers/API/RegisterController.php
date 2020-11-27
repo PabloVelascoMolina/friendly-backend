@@ -84,11 +84,14 @@ class RegisterController extends BaseController
 
     public function UploadPhoto(Request $request) {
         if ($request->hasFile('image')) {
-
             $file = $request->file('image');
             $filename = $file->getClientOriginalName();
             $picture = date('His') . '-' . $filename;
             $file->move(public_path('img'), $picture);
+
+            $user = Auth::user();
+            User::where('email', $user->email)->update(['avatar' => $picture]);
+
             return response()->json(['message' => 'Se ha completado la subida de la imagen'], 200);
 
         } else {
