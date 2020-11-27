@@ -82,6 +82,20 @@ class RegisterController extends BaseController
         return response()->json($user, 200);
     }
 
+    public function UploadPhoto(Request $request) {
+        if ($request->hasFile('image')) {
+
+            $file = $request->file('image');
+            $filename = $file->getClientOriginalName();
+            $picture = date('His') . '-' . $filename;
+            $file->move(public_path('img'), $picture);
+            return response()->json(['message' => 'Se ha completado la subida de la imagen'], 200);
+
+        } else {
+            return response()->json(['message' => 'No se ha seleccionado ninguna imagen']);
+        }
+    }
+
     public function logout(Request $request)
     {
         $request->user()->token()->revoke();

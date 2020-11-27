@@ -29,6 +29,7 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('products', ProductController::class);
     Route::get('user', [RegisterController::class, 'user']);
     Route::get('logout', [RegisterController::class, 'logout']);
+    Route::post('upload-photo', [RegisterController::class, 'UploadPhoto']);
 });
 
 Route::get('storage/{filename}', function ($filename) {
