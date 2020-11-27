@@ -90,7 +90,7 @@ class RegisterController extends BaseController
             $file->move(public_path('img'), $picture);
 
             $user = Auth::user();
-            User::where('email', $user->email)->update(['avatar' => env(APP_URL) . '/img/' . $picture]);
+            User::where('email', $user->email)->update(['avatar' => $_ENV['APP_URL'] . '/img/' . $picture]);
 
             return response()->json(['message' => 'Se ha completado la subida de la imagen'], 200);
 
