@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 use Avatar;
 use Storage;
+use DB;
 use App\Models\Posts;
 
 class RegisterController extends BaseController
@@ -114,7 +115,8 @@ class RegisterController extends BaseController
 
     public function PostById($id)
     {
-        $posts = Posts::all()->sortByDesc("id")->where('user_id', $id);
+        //Posts::all()->sortByDesc("id")->where('user_id', $id)
+        $posts = DB::table('posts')->where('user_id', $id)->orderBy('id', 'desc')->get();
         return response()->json($posts, 200);
     }
 }
