@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 use Avatar;
 use Storage;
+use App\Models\Posts;
 
 class RegisterController extends BaseController
 {
@@ -109,5 +110,11 @@ class RegisterController extends BaseController
         return response()->json([
             'message' => 'Successfully logged out'
         ]);
+    }
+
+    public function PostById($id)
+    {
+        $posts = Posts::all()->sortByDesc("id")->where('user_id', $id);
+        return response()->json($posts, 200);
     }
 }
