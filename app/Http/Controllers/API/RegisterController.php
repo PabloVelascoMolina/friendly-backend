@@ -86,13 +86,17 @@ class RegisterController extends BaseController
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = $file->getClientOriginalName();
+            $size = $file->getSize();
+
             $picture = date('His') . '-' . $filename;
             $file->move(public_path('img'), $picture);
+            $url = $_ENV['APP_URL'] . '/img/' . $picture;
 
             $user = Auth::user();
-            User::where('email', $user->email)->update(['avatar' => $_ENV['APP_URL'] . '/img/' . $picture]);
 
-            return response()->json(['message' => 'Se ha completado la subida de la imagen'], 200);
+            User::where('email', $user->email)->update(['avatar' => $url]);
+
+            return response()->json(['url' => $url], 200);
 
         } else {
             return response()->json(['message' => 'No se ha seleccionado ninguna imagen']);
