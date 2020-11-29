@@ -24,6 +24,7 @@ Route::post('login', [RegisterController::class, 'login']);
 Route::get('randomusers', [RegisterController::class, 'RandomUsers']);
 Route::get('profile/{id}', [RegisterController::class, 'Profile']);
 Route::get('posts/{id}', [RegisterController::class, 'PostById']);
+Route::get('photos/{id}', [RegisterController::class, 'Photos']);
 Route::resource('posts', PostsController::class);
 
 Route::middleware('auth:api')->group(function () {

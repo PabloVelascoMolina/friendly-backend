@@ -115,10 +115,19 @@ class RegisterController extends BaseController
 
     public function PostById($id)
     {
-        $posts = DB::table('posts')->where('user_id', $id)->orderBy('id', 'desc')->get();
+        $posts = DB::table('posts')->where('user_id', $id)->orderBy('id', 'DESC')->get();
         if ($posts->isEmpty()) {
             return response()->json(['error' => 'Este usuario aún no ha publicado nada.']);
         }
         return response()->json($posts, 200);
+    }
+
+    public function Photos($id) {
+        $photos = DB::table('posts')->where('user_id', $id)->orderBy('id', 'DESC')->get();
+        if ($photos->isEmpty()) {
+            return response()->json(['error' => 'Este usuario aún no tiene fotos.']);
+        }
+
+        return response()->json($photos->pluck('image', 'id'), 200);
     }
 }
