@@ -123,11 +123,11 @@ class RegisterController extends BaseController
     }
 
     public function Photos($id) {
-        $photos = DB::table('posts')->where('user_id', $id)->orderBy('id', 'DESC')->get();
+        $photos = DB::table('posts')->select('id', 'image')->where('user_id', $id)->orderBy('id', 'DESC')->get();
         if ($photos->isEmpty()) {
             return response()->json(['error' => 'Este usuario aún no tiene fotos.']);
         }
 
-        return response()->json($photos->pluck('image', 'id'), 200);
+        return response()->json(['data' => $photos], 200);
     }
 }
