@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "arkaitzgarro/elastic-apm-laravel": "^3.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -16,6 +17,7 @@
         "laravel/passport": "^10.0",
         "laravel/tinker": "^2.5",
         "laravolt/avatar": "^4.0",
+        "php-http/guzzle7-adapter": "^0.1.1",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {

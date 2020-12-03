@@ -175,7 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Laravolt\Avatar\ServiceProvider::class,
-
+        \AG\ElasticApmLaravel\ServiceProvider::class,
 
     ],
 
