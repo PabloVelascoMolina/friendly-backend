@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use Validator;
 use App\Models\Posts;
 use Illuminate\Http\Request;
 use App\Http\Resources\Posts as PostsResource;
@@ -22,16 +23,6 @@ class PostsController extends BaseController
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -39,7 +30,22 @@ class PostsController extends BaseController
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'description' => 'required',
+            'category' => 'required',
+            'image' => 'required',
+            'user_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
+        }
+
+        $post = Posts::create($input);
+
+        return $this->sendResponse(new PostsResource($post), 'Post created successfully.');
     }
 
     /**
@@ -48,20 +54,15 @@ class PostsController extends BaseController
      * @param  \App\Models\Posts  $posts
      * @return \Illuminate\Http\Response
      */
-    public function show(Posts $posts)
+    public function show($id)
     {
-        //
-    }
+        $post = Posts::find($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Posts  $posts
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Posts $posts)
-    {
-        //
+        if (is_null($post)) {
+            return $this->sendError('Post not found.');
+        }
+
+        return $this->sendResponse(new PostResource($post), 'Post retrieved successfully.');
     }
 
     /**
@@ -71,9 +72,29 @@ class PostsController extends BaseController
      * @param  \App\Models\Posts  $posts
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Posts $posts)
+    public function update(Request $request, $id)
     {
-        //
+        $posts = Posts::find($id);
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'description' => 'required',
+            'category' => 'required',
+            'image' => 'required',
+            'user_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
+        }
+
+        $posts->description = $input['description'];
+        $posts->category = $input['category'];
+        $posts->image = $input['image'];
+        $posts->user_id = $input['user_id'];
+        $posts->update($request->all());
+
+        return $this->sendResponse(new PostsResource($posts), 'Post updated successfully.');
     }
 
     /**
@@ -82,8 +103,16 @@ class PostsController extends BaseController
      * @param  \App\Models\Posts  $posts
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Posts $posts)
+    public function destroy($id)
     {
-        //
+        $posts = Posts::find($id);
+
+        if (is_null($posts)) {
+            return $this->sendError('Post not found.');
+        }
+
+        $posts->delete($id);
+
+        return $this->sendResponse(new PostsResource($posts), 'Post deleted successfully.');
     }
 }
