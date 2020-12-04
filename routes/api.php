@@ -21,9 +21,9 @@ use App\Http\Resources\Posts;
 
 Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [RegisterController::class, 'login']);
-
 Route::get('randomusers', [RegisterController::class, 'RandomUsers']);
 Route::get('profile/{id}', [RegisterController::class, 'Profile']);
+
 Route::get('posts-by/{id}', [RegisterController::class, 'PostById']);
 Route::get('photos/{id}', [RegisterController::class, 'Photos']);
 
