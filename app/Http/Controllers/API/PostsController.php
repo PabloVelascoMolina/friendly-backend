@@ -35,7 +35,6 @@ class PostsController extends BaseController
         $validator = Validator::make($input, [
             'description' => 'required',
             'category' => 'required',
-            'image' => 'nullable',
             'user_id' => 'required',
         ]);
 
@@ -43,7 +42,7 @@ class PostsController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors());
         }
 
-        $post = Posts::create($input);
+        $post = Posts::create([$input, 'image' => $request['image'] ?? 'Standard']);
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
