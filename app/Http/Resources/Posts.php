@@ -18,7 +18,7 @@ class Posts extends JsonResource
             'id' => $this->id,
             'description' => $this->description,
             'category' => $this->category,
-            'image' => $this->image !== 'null' ? $this->image : null,
+            'image' => $this->image,
             'user_id' => $this->user_id,
             'created_at' => $this->created_at->format('d/m/Y'),
             'updated_at' => $this->updated_at->format('d/m/Y'),
