@@ -60,6 +60,7 @@ class RegisterController extends BaseController
             $success['email'] =  $user->email;
             $success['id'] =  $user->id;
             $success['avatar'] =  $user->avatar;
+            $success['ip'] =  $_SERVER['REMOTE_ADDR'];
 
             return $this->sendResponse($success, 'User login successfully.');
         } else {
