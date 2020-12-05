@@ -45,7 +45,6 @@ class PostsController extends BaseController
 
         $post = Posts::create($input);
 
-        return $this->sendResponse($post->id, 'Post created successfully.');
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
@@ -56,11 +55,12 @@ class PostsController extends BaseController
             $file->move(public_path('img'), $picture);
             $url = $_ENV['APP_URL'] . '/img/' . $picture;
 
-            //Posts::where('id', $post->id)->update(['image' => $url]);
+            Posts::where('id', $post->id)->update(['image' => $url]);
+
             return $this->sendResponse($url, 'Post created successfully.');
         }
 
-        //return $this->sendResponse(new PostsResource($post), 'Post created successfully.');
+        return $this->sendResponse(new PostsResource($post), 'Post created successfully.');
     }
 
     /**
