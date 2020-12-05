@@ -44,6 +44,18 @@ class PostsController extends BaseController
 
         $post = Posts::create($input);
 
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = $file->getClientOriginalName();
+            $size = $file->getSize();
+
+            $picture = date('His') . '-' . $filename;
+            $file->move(public_path('img'), $picture);
+            $url = $_ENV['APP_URL'] . '/img/' . $picture;
+
+            Posts::where('id', $post->id)->update(['image' => $url]);
+        }
+
         return $this->sendResponse(new PostsResource($post), 'Post created successfully.');
     }
 
