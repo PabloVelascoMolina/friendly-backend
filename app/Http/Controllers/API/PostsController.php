@@ -46,7 +46,7 @@ class PostsController extends BaseController
             'description' => $input['description'],
             'category' => $input['category'],
             'user_id' => $input['user_id'],
-            'image' => $input['image'] ?? 'Standard'
+            'image' => $input['image'] == "null" ? null : $input['image']
         ]);
 
         if ($request->hasFile('image')) {
