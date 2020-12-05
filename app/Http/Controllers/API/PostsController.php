@@ -35,7 +35,7 @@ class PostsController extends BaseController
         $validator = Validator::make($input, [
             'description' => 'required',
             'category' => 'required',
-            'image' => null,
+            'image' => 'nullable',
             'user_id' => 'required',
         ]);
 
