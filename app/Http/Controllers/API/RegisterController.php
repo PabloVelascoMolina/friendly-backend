@@ -42,6 +42,7 @@ class RegisterController extends BaseController
         $success['email'] =  $user->email;
         $success['id'] =  $user->id;
         $success['avatar'] =  $user->avatar;
+        $success['ip'] =  $this->getRealIP();
 
         return $this->sendResponse($success, 'User register successfully.');
     }
