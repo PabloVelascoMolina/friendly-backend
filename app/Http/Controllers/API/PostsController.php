@@ -45,7 +45,7 @@ class PostsController extends BaseController
 
         $post = Posts::create($input);
 
-        return $this->sendResponse($post, 'Post created successfully.');
+        return $this->sendResponse($post->id, 'Post created successfully.');
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
