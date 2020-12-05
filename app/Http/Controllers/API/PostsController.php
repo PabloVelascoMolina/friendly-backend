@@ -42,9 +42,7 @@ class PostsController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors());
         }
 
-
         $post = Posts::create($input);
-
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
