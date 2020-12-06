@@ -71,11 +71,17 @@ class LikesController extends BaseController
         if ($post !== null) {
 
             $likes = DB::table('posts_likes')->where('post_id', $post->id)->where('user_id', $user->id)->where('liked', 1)->first();
-            $arr = [
-                'liked' => $likes->liked,
-                'post_id' => $post->id
-            ];
-            return $this->sendResponse($arr, 'Like successfully.');
+
+            if ($likes !== null) {
+                $arr = [
+                    'liked' => $likes->liked,
+                    'post_id' => $post->id
+                ];
+                return $this->sendResponse($arr, 'Like successfully.');
+            } else {
+                return $this->sendResponse(null, 'Failed like post.');
+            }
+
         } else {
             return $this->sendResponse(null, 'Failed like post.');
         }
