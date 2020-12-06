@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\PostsController;
+use App\Http\Controllers\API\Likes\LikesController;
 use App\Http\Resources\Posts;
 
 /*
@@ -39,6 +40,9 @@ Route::middleware('auth:api')->group(function () {
 
     /* Controllers POST */
     Route::post('upload-photo', [RegisterController::class, 'UploadPhoto']);
+    Route::post('post-like-add/{id}', [LikesController::class, 'GenerateLike']);
+    Route::post('post-like-remove/{id}', [LikesController::class, 'DeleteLike']);
+    Route::post('post-like-count/{id}', [LikesController::class, 'Counter']);
 });
 
 Route::get('storage/{filename}', function ($filename) {
