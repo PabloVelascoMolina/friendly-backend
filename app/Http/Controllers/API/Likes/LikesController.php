@@ -66,10 +66,11 @@ class LikesController extends BaseController
     }
 
     public function DetectLikedPost($id) {
+        $user = Auth::user();
         $post = Posts::find($id);
         if ($post !== null) {
 
-            $likes = DB::table('posts_likes')->where('post_id', $post->id)->where('liked', 1)->first();
+            $likes = DB::table('posts_likes')->where('post_id', $post->id)->where('user_id', $user->id)->where('liked', 1)->first();
             $arr = [
                 'liked' => $likes->liked,
                 'post_id' => $post->id
