@@ -20,7 +20,11 @@ class LikesController extends BaseController
         if ($post !== null) {
 
             $likes = Likes::firstOrCreate(['post_id' => $post->id, 'user_id' => $user->id]);
-            return $this->sendResponse($likes, 'Like successfully.');
+            if ($likes->wasRecentlyCreated) {
+                return $this->sendResponse($likes, 'Like successfully.');
+            } else {
+                return $this->sendResponse(null, 'Failed like post.');
+            }
 
         } else {
             return $this->sendResponse(null, 'Failed like post.');
