@@ -43,6 +43,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('post-like-add/{id}', [LikesController::class, 'GenerateLike']);
     Route::post('post-like-remove/{id}', [LikesController::class, 'DeleteLike']);
     Route::post('post-like-count/{id}', [LikesController::class, 'Counter']);
+    Route::post('post-like-view/{id}', [LikesController::class, 'DetectLikedPost']);
 });
 
 Route::get('storage/{filename}', function ($filename) {

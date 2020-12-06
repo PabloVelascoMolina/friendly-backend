@@ -64,4 +64,20 @@ class LikesController extends BaseController
         }
 
     }
+
+    public function DetectLikedPost($id) {
+        $post = Posts::find($id);
+        if ($post !== null) {
+
+            $likes = DB::table('posts_likes')->where('post_id', $post->id)->where('liked', 1)->first();
+            $arr = [
+                'liked' => $likes->liked,
+                'post_id' => $post->id
+            ];
+            return $this->sendResponse($arr, 'Like successfully.');
+        } else {
+            return $this->sendResponse(null, 'Failed like post.');
+        }
+
+    }
 }
