@@ -40,9 +40,9 @@ Route::middleware('auth:api')->group(function () {
 
     /* Controllers POST */
     Route::post('upload-photo', [RegisterController::class, 'UploadPhoto']);
-    Route::post('post-like-add/{id}', [LikesController::class, 'GenerateLike']);
-    Route::post('post-like-remove/{id}', [LikesController::class, 'DeleteLike']);
-    Route::post('post-like-count/{id}', [LikesController::class, 'Counter']);
+    Route::get('post-like-add/{id}', [LikesController::class, 'GenerateLike']);
+    Route::get('post-like-remove/{id}', [LikesController::class, 'DeleteLike']);
+    Route::get('post-like-count/{id}', [LikesController::class, 'Counter']);
 });
 
 Route::get('storage/{filename}', function ($filename) {
