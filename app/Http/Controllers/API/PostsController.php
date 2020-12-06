@@ -7,6 +7,7 @@ use App\Models\Posts;
 use Illuminate\Http\Request;
 use App\Http\Resources\Posts as PostsResource;
 use App\Http\Controllers\API\BaseController as BaseController;
+use Illuminate\Support\Facades\Auth;
 
 class PostsController extends BaseController
 {
@@ -18,7 +19,13 @@ class PostsController extends BaseController
     public function index()
     {
         $posts = Posts::all()->sortByDesc("id")->take(10);
-        return $this->sendResponse(PostsResource::collection($posts), 'Posts retrieved successfully.');
+        $user = Auth::user();
+        $arr = [
+            'post' => PostsResource::collection($posts),
+            'user' => $user
+        ];
+
+        return $this->sendResponse($arr, 'Posts retrieved successfully.');
     }
 
     /**

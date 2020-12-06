@@ -43,6 +43,7 @@ class RegisterController extends BaseController
         $success['id'] =  $user->id;
         $success['avatar'] =  $user->avatar;
         $success['ip'] =  $this->getRealIP();
+        $success['location'] = $user->location_settings;
 
         return $this->sendResponse($success, 'User register successfully.');
     }
@@ -62,6 +63,7 @@ class RegisterController extends BaseController
             $success['id'] =  $user->id;
             $success['avatar'] =  $user->avatar;
             $success['ip'] =  $this->getRealIP();
+            $success['location'] = $user->location_settings;
 
             return $this->sendResponse($success, 'User login successfully.');
         } else {
