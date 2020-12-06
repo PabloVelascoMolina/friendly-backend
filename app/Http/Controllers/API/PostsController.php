@@ -18,7 +18,6 @@ class PostsController extends BaseController
     public function index()
     {
         $posts = Posts::all()->sortByDesc("id")->take(10);
-
         return $this->sendResponse(PostsResource::collection($posts), 'Posts retrieved successfully.');
     }
 
