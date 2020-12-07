@@ -23,15 +23,10 @@ class PostsController extends BaseController
         $posts = Posts::all()->sortByDesc("id")->take(10);
         foreach ($posts as $p) {
             $user = User::find($p->user_id);
-
-            $arr = [
-                'post' => $posts,
-                'user' => $user
-            ];
         }
 
 
-        return $this->sendResponse(json_encode($arr), 'Posts retrieved successfully.');
+        return $this->sendResponse($posts . $user, 'Posts retrieved successfully.');
     }
 
     /**
