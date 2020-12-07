@@ -31,7 +31,7 @@ class PostsController extends BaseController
         }
 
 
-        return $this->sendResponse($arr, 'Posts retrieved successfully.');
+        return $this->sendResponse(json_encode($arr), 'Posts retrieved successfully.');
     }
 
     /**
