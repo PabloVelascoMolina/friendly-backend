@@ -11,6 +11,7 @@ use Avatar;
 use Storage;
 use DB;
 use App\Models\Posts;
+use App\Http\Resources\Posts as PostsResource;
 
 class RegisterController extends BaseController
 {
@@ -138,11 +139,13 @@ class RegisterController extends BaseController
 
     public function PostById($id)
     {
-        $posts = DB::table('posts')->where('user_id', $id)->orderBy('id', 'DESC')->get();
+        //$posts = DB::table('posts')->where('user_id', $id)->orderBy('id', 'DESC')->get();
+        $posts = Posts::all()->where('user_id', $id)->sortByDesc("id")->take(10);
+        $collection = PostsResource::collection($posts);
         if ($posts->isEmpty()) {
             return response()->json(['error' => 'Este usuario aún no ha publicado nada.']);
         }
-        return response()->json($posts, 200);
+        return $this->sendResponse($collection, 'Posts retrieved successfully.');
     }
 
     public function Photos($id) {
