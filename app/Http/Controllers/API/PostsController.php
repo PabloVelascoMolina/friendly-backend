@@ -20,13 +20,13 @@ class PostsController extends BaseController
      */
     public function index()
     {
-        $posts = Posts::all()->sortByDesc("id")->take(10);
-        foreach ($posts as $p) {
-            $user = User::find($p->user_id);
-        }
 
+		$posts = Posts::all()->sortByDesc("id")->take(10);
 
-        return $this->sendResponse($posts . $user, 'Posts retrieved successfully.');
+		$collection = PostsResource::collection($posts);
+
+		return $this->sendResponse($collection, 'Posts retrieved successfully.');
+
     }
 
     /**
