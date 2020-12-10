@@ -9,6 +9,7 @@ use App\Http\Resources\Posts as PostsResource;
 use App\Http\Controllers\API\BaseController as BaseController;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Likes;
 use DB;
 
 class PostsController extends BaseController
@@ -130,6 +131,7 @@ class PostsController extends BaseController
     public function destroy($id)
     {
         $posts = Posts::find($id);
+        Likes::where('post_id', '=', $id)->delete();
 
         if (is_null($posts)) {
             return $this->sendError('Post not found.');

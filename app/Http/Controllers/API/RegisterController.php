@@ -139,7 +139,6 @@ class RegisterController extends BaseController
 
     public function PostById($id)
     {
-        //$posts = DB::table('posts')->where('user_id', $id)->orderBy('id', 'DESC')->get();
         $posts = Posts::all()->where('user_id', $id)->sortByDesc("id")->take(10);
         $collection = PostsResource::collection($posts);
         if ($posts->isEmpty()) {
@@ -150,6 +149,7 @@ class RegisterController extends BaseController
 
     public function Photos($id) {
         $photos = DB::table('posts')->select('id', 'image')->where('user_id', $id)->orderBy('id', 'DESC')->get();
+
         if ($photos->isEmpty()) {
             return response()->json(['error' => 'Este usuario aún no tiene fotos.']);
         }
