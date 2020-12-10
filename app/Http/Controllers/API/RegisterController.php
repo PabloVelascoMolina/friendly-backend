@@ -98,7 +98,7 @@ class RegisterController extends BaseController
 
     public function RandomUsers() {
         $user = User::all();
-        $numberOfRows = 9;
+        $numberOfRows = 20;
         $randRows = $user->shuffle()->slice(0, $numberOfRows);
         return response()->json($randRows, 200);
     }
