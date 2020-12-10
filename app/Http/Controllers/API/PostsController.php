@@ -22,7 +22,7 @@ class PostsController extends BaseController
     public function index()
     {
 
-		$posts = Posts::all()->sortByDesc("id")->take(10);
+		$posts = Posts::all()->sortByDesc("id");
 
 		$collection = PostsResource::collection($posts);
 
